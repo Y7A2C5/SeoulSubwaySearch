@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>首爾地鐵方向查詢</title>
+<title>首爾地鐵迷路小幫手</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -17,7 +17,7 @@
   }
   body { font-family: 'Segoe UI', 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  .app { display: flex; height: 100vh; overflow: hidden; }
+  .app { display: flex; min-height: 100vh; overflow: hidden; }
 
   /* LEFT PANEL */
   .panel { width: 420px; min-width: 380px; background: var(--card); display: flex; flex-direction: column; border-right: 1px solid var(--border); overflow: hidden; }
@@ -61,7 +61,7 @@
     border: none; border-radius: 8px; font-size: 15px; font-weight: 500;
     cursor: pointer; margin-top: 4px; transition: background 0.15s;
   }
-  .go-btn:hover { background: #184088; }
+  .go-btn:hover { background: #184884; }
 
   /* RESULT */
   .result-box { margin-top: 14px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); display: none; }
@@ -93,15 +93,12 @@
   .map-controls { padding: 10px 16px; background: var(--card); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
   .map-controls button { padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px; background: white; cursor: pointer; font-size: 13px; }
 
-  /* RIGHT PANEL - MAP */
-  .map-panel { flex: 1; background: #fff; overflow: auto; display: flex; align-items: center; justify-content: center; }
-  .map-panel img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
   /* MOBILE */
   @media (max-width: 768px) {
-    .app { flex-direction: column; }
-    .panel { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--border); height: auto; max-height: 80vh; }
-    .map-panel { min-height: 300px; }
+    body { min-height: auto; }
+    .app { flex-direction: column; min-height: auto; height: auto; overflow: visible; }
+    .panel { width: 100%; min-width: unset; border-right: none; border-bottom: none; height: auto; max-height: none; overflow: visible; }
+    .panel-body { overflow-y: visible; }
   }
 
   .section-divider { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 14px 0 8px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
@@ -111,7 +108,7 @@
 <div class="app">
   <div class="panel">
     <div class="panel-header">
-      <div class="app-title">🚇 首爾地鐵方向查詢</div>
+      <div class="app-title">🚇 首爾地鐵迷路小幫手</div>
       <div class="app-sub">Seoul Metro Direction Finder · 서울 지하철 방향 안내</div>
     </div>
     <div class="tabs">
@@ -206,6 +203,8 @@
       </div>
     </div>
   </div>
+
+
 </div>
 
 <script>
@@ -793,7 +792,7 @@ function updateLineStations() {
     LINE_STATIONS[line].forEach(s => {
       const o = document.createElement('option');
       o.value = s.ko;
-      o.textContent = `${s.zh}　${s.en}`;
+      o.textContent = `${s.zh}　${s.en}　${s.ko}`;
       sel.appendChild(o);
     });
   }
@@ -814,7 +813,7 @@ function suggest(field) {
     div.className = 'autocomplete-item';
     div.dataset.idx = i;
     const lines = s.lines.map(l => `<span class="line-dot" style="background:${LINES[l.line]?.color||'#999'}"></span>`).join('');
-    div.innerHTML = `${lines}<span class="zh">${s.zh}</span><span class="en">${s.en}</span>`;
+    div.innerHTML = `${lines}<span class="zh">${s.zh}</span><span class="en">${s.en}</span><span style="color:var(--muted);font-size:11px;margin-left:5px;">${s.ko}</span>`;
     div.addEventListener('mousedown', e => { e.preventDefault(); selectStation(field, s); });
     list.appendChild(div);
   });
@@ -825,7 +824,7 @@ function suggest(field) {
 function selectStation(field, s) {
   selectedStations[field] = s;
   const inp = document.getElementById('txt-' + field);
-  if (inp) inp.value = `${s.zh}　${s.en}`;
+  if (inp) inp.value = `${s.zh}　${s.en}　${s.ko}`;
   const list = document.getElementById('list-' + field);
   if (list) { list.innerHTML = ''; list.style.display = 'none'; }
 }
@@ -1046,17 +1045,6 @@ function showError(msg) {
   document.getElementById('res-body').innerHTML = '';
 }
 
-// Map tab: embed PDF as object
-document.getElementById('tab-map').innerHTML = `
-  <div style="padding:10px 14px; font-size:13px; color:var(--muted); border-bottom:1px solid var(--border); flex-shrink:0;">
-    首爾地鐵路線圖（繁體中文版）· 可縮放
-  </div>
-  <div style="flex:1; overflow:hidden;">
-    <object data="subway_seoul_cn_kr.pdf" type="application/pdf" width="100%" height="100%" style="min-height:600px;">
-      <p style="padding:20px; color:var(--muted);">PDF 無法直接顯示，請確認檔案路徑或使用瀏覽器開啟。</p>
-    </object>
-  </div>
-`;
 </script>
-</body>
+</body>>
 </html>
