@@ -63,26 +63,63 @@
   }
   .go-btn:hover { background: #184088; }
 
+  /* RESULT ANIMATIONS */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.88); }
+    60%  { transform: scale(1.04); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shimmerOk {
+    0%   { box-shadow: 0 0 0 0 rgba(29,158,117,0.45); }
+    70%  { box-shadow: 0 0 0 10px rgba(29,158,117,0); }
+    100% { box-shadow: 0 0 0 0 rgba(29,158,117,0); }
+  }
+  @keyframes shimmerNg {
+    0%   { box-shadow: 0 0 0 0 rgba(216,90,48,0.45); }
+    70%  { box-shadow: 0 0 0 10px rgba(216,90,48,0); }
+    100% { box-shadow: 0 0 0 0 rgba(216,90,48,0); }
+  }
+  @keyframes fadeRow {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
   /* RESULT */
-  .result-box { margin-top: 14px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); display: none; }
-  .result-box.show { display: block; }
-  .result-head { padding: 14px 16px; }
-  .result-head.ok { background: #f0fdf7; border-bottom: 1px solid #b8f0dc; }
-  .result-head.ng { background: #fff5f0; border-bottom: 1px solid #fdd0bc; }
+  .result-box { margin-top: 14px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border); display: none; }
+  .result-box.show { display: block; animation: slideDown 0.28s cubic-bezier(0.22,1,0.36,1) both; }
+  .result-box.show.ok-box { border-color: #6edbb8; animation: slideDown 0.28s cubic-bezier(0.22,1,0.36,1) both, shimmerOk 0.7s 0.2s ease-out; }
+  .result-box.show.ng-box { border-color: #f5a888; animation: slideDown 0.28s cubic-bezier(0.22,1,0.36,1) both, shimmerNg 0.7s 0.2s ease-out; }
+
+  .result-head { padding: 16px 18px 14px; display: flex; align-items: flex-start; gap: 14px; }
+  .result-head.ok { background: linear-gradient(135deg, #e6faf2 0%, #d0f5e8 100%); border-bottom: 1px solid #9de8cb; }
+  .result-head.ng { background: linear-gradient(135deg, #fff0eb 0%, #ffe0d5 100%); border-bottom: 1px solid #f5b89e; }
   .result-head.warn { background: #fffbeb; border-bottom: 1px solid #fde68a; }
-  .verdict { font-size: 17px; font-weight: 600; }
-  .verdict.ok { color: var(--ok); }
-  .verdict.ng { color: var(--ng); }
-  .verdict.warn { color: var(--warn); }
-  .verdict-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  .verdict-icon { font-size: 32px; line-height: 1; flex-shrink: 0; animation: popIn 0.4s 0.1s cubic-bezier(0.22,1,0.36,1) both; }
+  .verdict-text-wrap { flex: 1; }
+  .verdict { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .verdict.ok { color: #0f7a55; }
+  .verdict.ng { color: #b83a14; }
+  .verdict.warn { color: #a16207; }
+  .verdict-sub { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
   .result-body { padding: 12px 16px; background: white; }
-  .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; gap: 12px; }
+  .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; gap: 12px; animation: fadeRow 0.22s ease both; }
   .info-row:last-child { border-bottom: none; }
   .info-key { color: var(--muted); flex-shrink: 0; }
   .info-val { font-weight: 500; text-align: right; }
-  .transfer-box { margin-top: 10px; background: #f8f4ff; border: 1px solid #d6c9f4; border-radius: 8px; padding: 10px 12px; font-size: 13px; }
-  .transfer-title { font-weight: 600; color: #5a3eac; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .transfer-step { padding: 4px 0; color: #3d2e82; display: flex; align-items: center; gap: 6px; }
+
+  .transfer-box { margin-top: 10px; background: #f8f4ff; border: 1px solid #d6c9f4; border-radius: 10px; padding: 12px 14px; font-size: 13px; animation: fadeRow 0.25s 0.18s ease both; }
+  .transfer-title { font-weight: 700; color: #5a3eac; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 5px; }
+  .transfer-step { padding: 5px 0; color: #3d2e82; display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
+  .step-num { background: #d6c9f4; color: #5a3eac; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  .ng-hint { margin-top: 10px; padding: 12px 14px; background: linear-gradient(135deg, #fff0eb, #ffe8df); border: 1px solid #f5b89e; border-radius: 10px; font-size: 13px; color: #8b2500; display: flex; align-items: center; gap: 8px; animation: fadeRow 0.25s 0.2s ease both; }
+
   .line-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 12px; font-size: 11px; font-weight: 600; color: white; }
 
   /* MAP TAB */
@@ -179,10 +216,7 @@
       <button class="go-btn" onclick="checkDirection()">判斷方向 →</button>
 
       <div class="result-box" id="result-box">
-        <div class="result-head" id="res-head">
-          <div class="verdict" id="res-verdict"></div>
-          <div class="verdict-sub" id="res-sub"></div>
-        </div>
+        <div class="result-head" id="res-head"></div>
         <div class="result-body" id="res-body"></div>
       </div>
     </div>
@@ -702,6 +736,176 @@ const RAW = [
   ['영종','Yeongjong','永宗','A',8],
   ['인천공항1터미널','Incheon Arpt T1','仁川機場第1航廈','A',9],
   ['인천공항2터미널','Incheon Arpt T2','仁川機場第2航廈','A',10],
+
+  // 盆唐線 (분당선)
+  ['수원','Suwon','水原','B',0],
+  ['수원시청','Suwon City Hall','水原市廳','B',1],
+  ['매탄권선','Maetan Gwonseon','梅灘勸善','B',2],
+  ['정자','Jeongja','亭子','B',3],
+  ['미금','Migeum','美金','B',4],
+  ['오리','Ori','梧里','B',5],
+  ['죽전','Jukjeon','竹田','B',6],
+  ['보정','Bojeong','寶亭','B',7],
+  ['구성','Guseong','舊城','B',8],
+  ['신갈','Singal','新葛','B',9],
+  ['기흥','Giheung','器興','B',10],
+  ['상갈','Sanggal','上葛','B',11],
+  ['청명','Cheongmyeong','淸明','B',12],
+  ['영통','Yeongton','靈通','B',13],
+  ['망포','Mangpo','網浦','B',14],
+  ['매탄권선','Maetan Gwonseon','梅灘勸善','B',15],
+  ['수원','Suwon','水原','B',16],
+  ['고색','Gosaek','古色','B',17],
+  ['오목천','Omokcheon','五木川','B',18],
+  ['어천','Eocheon','漁川','B',19],
+  ['야목','Yamok','冶木','B',20],
+  ['사리','Sari','沙里','B',21],
+  ['한대앞','Hanyang Univ.','漢大前','B',22],
+  ['중앙','Jungang','中央','B',23],
+  ['고잔','Gojan','古棧','B',24],
+  ['초지','Choji','草芝','B',25],
+  ['안산','Ansan','安山','B',26],
+  ['수원','Suwon','水原','B',27],
+  ['서울숲','Seoul Forest','首爾森林','B',28],
+  ['압구정로데오','Apgujeong Rodeo','狎鷗亭羅데오','B',29],
+  ['강남구청','Gangnam-gu Office','江南區廳','B',30],
+  ['선정릉','Seonjeongneung','宣靖陵','B',31],
+  ['선릉','Seolleung','宣陵','B',32],
+  ['한티','Hanti','한티','B',33],
+  ['도곡','Dogok','道谷','B',34],
+  ['구룡','Guryong','九龍','B',35],
+  ['개포동','Gaepo-dong','開浦洞','B',36],
+  ['대모산입구','Daemosan','大母山入口','B',37],
+  ['수서','Suseo','水西','B',38],
+  ['복정','Bokjeong','福井','B',39],
+  ['가천대','Gachon Univ.','嘉泉大','B',40],
+  ['태평','Taepyeong','太平','B',41],
+  ['모란','Moran','牡丹','B',42],
+  ['야탑','Yatap','野塔','B',43],
+  ['이매','Imae','二梅','B',44],
+  ['서현','Seohyeon','書峴','B',45],
+  ['수내','Sunae','水內','B',46],
+  ['정자','Jeongja','亭子','B',47],
+  ['미금','Migeum','美金','B',48],
+  ['오리','Ori','梧里','B',49],
+  ['죽전','Jukjeon','竹田','B',50],
+  ['보정','Bojeong','寶亭','B',51],
+  ['기흥','Giheung','器興','B',52],
+  ['신갈','Singal','新葛','B',53],
+  ['구성','Guseong','舊城','B',54],
+  ['마북','Mabuk','馬北','B',55],
+  ['공세','Gongse','空勢','B',56],
+  ['강남대','Kangnam Univ.','江南大','B',57],
+  ['지석','Jiseok','芝石','B',58],
+  ['어정','Eojeong','御井','B',59],
+  ['동백','Dongbaek','冬栢','B',60],
+  ['초당','Chodang','草堂','B',61],
+  ['삼가','Samga','三街','B',62],
+  ['시청·용인대','City Hall·Yongin Univ.','市廳·龍仁大','B',63],
+  ['명지대','Myongji Univ.','明知大','B',64],
+  ['김량장','Gimnyangjangi','金良場','B',65],
+  ['용인중앙시장','Yongin Jungang Market','龍仁中央市場','B',66],
+  ['고진','Gojin','古眞','B',67],
+  ['보라','Bora','補羅','B',68],
+  ['숙지','Sukji','肅知','B',69],
+  ['수원대','Suwon Univ.','水原大','B',70],
+  ['화서','Hwaseo','華西','B',71],
+  ['오목천','Omokcheon','五木川','B',72],
+
+  // 新盆唐線 (신분당선)
+  ['강남','Gangnam','江南','S',0],
+  ['양재','Yangjae','良才','S',1],
+  ['양재시민의숲','Yangjae Citizen\'s Forest','良才市民之林','S',2],
+  ['청계산입구','Cheonggyesan','淸溪山入口','S',3],
+  ['판교','Pangyo','板橋','S',4],
+  ['정자','Jeongja','亭子','S',5],
+  ['미금','Migeum','美金','S',6],
+  ['동천','Dongcheon','東川','S',7],
+  ['수지구청','Suji-gu Office','水枝區廳','S',8],
+  ['성복','Seongbok','星福','S',9],
+  ['상현','Sanghyeon','上峴','S',10],
+  ['광교중앙','Gwanggyo Jungang','光敎中央','S',11],
+  ['광교','Gwanggyo','光敎','S',12],
+  ['호매실','Homaesin','好梅實','S',13],
+  ['어울림누리','Eoullimnuri','어울림누리','S',14],
+  ['봉담역','Bongdam','峰潭','S',15],
+
+  // 京義中央線 (경의중앙선)
+  ['문산','Munsan','汶山','G',0],
+  ['파주','Paju','坡州','G',1],
+  ['월롱','Wollong','月籠','G',2],
+  ['야당','Yadang','野塘','G',3],
+  ['탄현','Tanhyeon','炭峴','G',4],
+  ['일산','Ilsan','一山','G',5],
+  ['풍산','Pungsan','豊山','G',6],
+  ['백마','Baengma','白馬','G',7],
+  ['곡산','Goksan','曲山','G',8],
+  ['능곡','Neunggok','陵谷','G',9],
+  ['행신','Haengsin','幸信','G',10],
+  ['강매','Gangmae','江梅','G',11],
+  ['디지털미디어시티','Digital Media City','數位媒體城','G',12],
+  ['수색','Susaek','水色','G',13],
+  ['화전','Hwajeon','花田','G',14],
+  ['능곡','Neunggok','陵谷','G',15],
+  ['서울역','Seoul Station','首爾站','G',16],
+  ['신촌','Sinchon','新村','G',17],
+  ['가좌','Gajwa','加佐','G',18],
+  ['홍대입구','Hongik Univ.','弘大入口','G',19],
+  ['효창공원앞','Hyochang Park','孝昌公園前','G',20],
+  ['공덕','Gongdeok','孔德','G',21],
+  ['서강대','Sogang Univ.','西江大','G',22],
+  ['용산','Yongsan','龍山','G',23],
+  ['이촌','Ichon','二村','G',24],
+  ['서빙고','Seobinggo','西氷庫','G',25],
+  ['한남','Hannam','漢南','G',26],
+  ['옥수','Oksu','玉水','G',27],
+  ['응봉','Eungbong','鷹峰','G',28],
+  ['왕십리','Wangsimni','往十里','G',29],
+  ['청량리','Cheongnyangni','清涼里','G',30],
+  ['회기','Hoegi','回基','G',31],
+  ['중랑','Jungnang','中浪','G',32],
+  ['망우','Mangwu','忘憂','G',33],
+  ['양원','Yangwon','楊院','G',34],
+  ['구리','Guri','九里','G',35],
+  ['도농','Donong','多農','G',36],
+  ['양정','Yangjeong','楊亭','G',37],
+  ['덕소','Deokso','德沼','G',38],
+  ['도심','Dosim','都心','G',39],
+  ['팔당','Paldang','八堂','G',40],
+  ['운길산','Ungisan','雲吉山','G',41],
+  ['양수','Yangsu','兩水','G',42],
+  ['신원','Sinwon','新院','G',43],
+  ['국수','Guksu','菊秀','G',44],
+  ['아신','Asin','阿新','G',45],
+  ['오빈','Obin','梧濱','G',46],
+  ['양평','Yangpyeong','楊平','G',47],
+  ['원덕','Wondeok','原德','G',48],
+  ['용문','Yongmun','龍門','G',49],
+  ['지평','Jipyeong','地坪','G',50],
+
+  // 京春線 (경춘선)
+  ['청량리','Cheongnyangni','清涼里','E',0],
+  ['회기','Hoegi','回基','E',1],
+  ['중랑','Jungnang','中浪','E',2],
+  ['망우','Mangwu','忘憂','E',3],
+  ['신내','Sinnae','新內','E',4],
+  ['갈매','Galmae','葛梅','E',5],
+  ['별내','Byeollae','別內','E',6],
+  ['퇴계원','Toegyewon','退溪院','E',7],
+  ['사릉','Sareung','思陵','E',8],
+  ['금곡','Geumgok','金谷','E',9],
+  ['평내호평','Pyeongnae-Hopyeong','坪內好坪','E',10],
+  ['마석','Maseok','磨石','E',11],
+  ['대성리','Daeseongni','大成里','E',12],
+  ['청평','Cheongpyeong','淸平','E',13],
+  ['상천','Sangcheon','上川','E',14],
+  ['가평','Gapyeong','加平','E',15],
+  ['굴봉산','Gulbongsan','屈峰山','E',16],
+  ['백양리','Baengnyangni','白楊里','E',17],
+  ['강촌','Gangchon','江村','E',18],
+  ['김유정','Gimyujeong','金裕貞','E',19],
+  ['남춘천','Namchuncheon','南春川','E',20],
+  ['춘천','Chuncheon','春川','E',21],
 ];
 
 // Build station map: ko -> {zh, en, ko, lines:[{line,idx}]}
@@ -788,7 +992,7 @@ function updateLineStations() {
     LINE_STATIONS[line].forEach(s => {
       const o = document.createElement('option');
       o.value = s.ko;
-      o.textContent = `${s.zh}　${s.en}　${s.ko}`;
+      o.textContent = `${s.ko} / ${s.en} / ${s.zh}`;
       sel.appendChild(o);
     });
   }
@@ -809,7 +1013,7 @@ function suggest(field) {
     div.className = 'autocomplete-item';
     div.dataset.idx = i;
     const lines = s.lines.map(l => `<span class="line-dot" style="background:${LINES[l.line]?.color||'#999'}"></span>`).join('');
-    div.innerHTML = `${lines}<span class="zh">${s.zh}</span><span class="en">${s.en}</span><span style="color:var(--muted);font-size:11px;margin-left:5px;">${s.ko}</span>`;
+    div.innerHTML = `${lines}<span style="font-weight:500;color:var(--text);">${s.ko}</span><span style="color:var(--muted);font-size:12px;"> / ${s.en} / ${s.zh}</span>`;
     div.addEventListener('mousedown', e => { e.preventDefault(); selectStation(field, s); });
     list.appendChild(div);
   });
@@ -820,7 +1024,7 @@ function suggest(field) {
 function selectStation(field, s) {
   selectedStations[field] = s;
   const inp = document.getElementById('txt-' + field);
-  if (inp) inp.value = `${s.zh}　${s.en}　${s.ko}`;
+  if (inp) inp.value = `${s.ko} / ${s.en} / ${s.zh}`;
   const list = document.getElementById('list-' + field);
   if (list) { list.innerHTML = ''; list.style.display = 'none'; }
 }
@@ -959,6 +1163,10 @@ function checkDirection() {
   showResult(canBoard, needTransfer, curStation, nextSt, destSt, curLineKey, dirLabel, transferInfo);
 }
 
+function stLabel(s) {
+  return `${s.ko} / ${s.en} / ${s.zh}`;
+}
+
 function showResult(canBoard, needTransfer, cur, next, dest, line, dirLabel, transferInfo) {
   const box = document.getElementById('result-box');
   const head = document.getElementById('res-head');
@@ -966,63 +1174,72 @@ function showResult(canBoard, needTransfer, cur, next, dest, line, dirLabel, tra
   const sub = document.getElementById('res-sub');
   const body = document.getElementById('res-body');
 
+  // Reset animation
+  box.classList.remove('show','ok-box','ng-box');
+  void box.offsetWidth;
+
   box.classList.add('show');
 
   const lineColor = LINES[line]?.color || '#999';
   const lineName = LINES[line]?.name || line;
 
   if (canBoard) {
+    box.classList.add('ok-box');
     head.className = 'result-head ok';
-    verdict.className = 'verdict ok';
-    verdict.textContent = '✓ 可以搭這班車';
-    sub.textContent = needTransfer
-      ? `方向正確，記得在轉乘站換乘`
-      : `列車方向正確，${dest.zh} 就在前方`;
+    head.innerHTML = `
+      <div class="verdict-icon">✅</div>
+      <div class="verdict-text-wrap">
+        <div class="verdict ok">可以搭這班車</div>
+        <div class="verdict-sub">${needTransfer ? '方向正確，記得在轉乘站換乘' : `列車方向正確，${dest.zh}（${dest.ko}）就在前方`}</div>
+      </div>`;
   } else {
+    box.classList.add('ng-box');
     head.className = 'result-head ng';
-    verdict.className = 'verdict ng';
-    verdict.textContent = '✗ 搭錯方向了';
-    sub.textContent = '請到對面月台搭乘反方向列車';
+    head.innerHTML = `
+      <div class="verdict-icon">🚫</div>
+      <div class="verdict-text-wrap">
+        <div class="verdict ng">搭錯方向了</div>
+        <div class="verdict-sub">請到對面月台搭乘反方向列車</div>
+      </div>`;
   }
 
   let html = `
-    <div class="info-row">
+    <div class="info-row" style="animation-delay:0.05s">
       <span class="info-key">目前路線</span>
       <span class="info-val"><span class="line-badge" style="background:${lineColor}">${lineName}</span></span>
     </div>
-    <div class="info-row">
+    <div class="info-row" style="animation-delay:0.09s">
       <span class="info-key">列車行進方向</span>
       <span class="info-val">${dirLabel}</span>
     </div>
-    <div class="info-row">
+    <div class="info-row" style="animation-delay:0.13s">
       <span class="info-key">看板下一站</span>
-      <span class="info-val">${next.zh}　<span style="color:var(--muted);font-weight:400;font-size:12px;">${next.en}</span></span>
+      <span class="info-val" style="font-size:12px;line-height:1.6;">${next.ko}<br><span style="color:var(--muted);font-weight:400;">${next.en} / ${next.zh}</span></span>
     </div>
-    <div class="info-row">
+    <div class="info-row" style="animation-delay:0.17s">
       <span class="info-key">目的地</span>
-      <span class="info-val">${dest.zh}　<span style="color:var(--muted);font-weight:400;font-size:12px;">${dest.en}</span></span>
+      <span class="info-val" style="font-size:12px;line-height:1.6;">${dest.ko}<br><span style="color:var(--muted);font-weight:400;">${dest.en} / ${dest.zh}</span></span>
     </div>
   `;
 
   if (needTransfer && transferInfo) {
+    const ts = transferInfo.transferStation;
     const tColor = LINES[transferInfo.transferLine]?.color || '#999';
     const tName = LINES[transferInfo.transferLine]?.name || transferInfo.transferLine;
     html += `
       <div class="transfer-box">
         <div class="transfer-title">🔄 需要轉乘</div>
-        <div class="transfer-step">1. 搭${canBoard?'此班車':'對向列車'}至 <strong>${transferInfo.transferStation.zh}</strong>（${transferInfo.transferStation.en}）</div>
-        <div class="transfer-step">2. 在此站換乘 <span class="line-badge" style="background:${tColor}">${tName}</span></div>
-        <div class="transfer-step">3. 搭 ${tName} 前往 <strong>${dest.zh}</strong></div>
+        <div class="transfer-step"><span class="step-num">1</span>搭${canBoard?'此班車':'對向列車'}至 <strong>${ts.zh}</strong>（${ts.ko} / ${ts.en}）</div>
+        <div class="transfer-step"><span class="step-num">2</span>在此站換乘 <span class="line-badge" style="background:${tColor};margin:0 2px;">${tName}</span></div>
+        <div class="transfer-step"><span class="step-num">3</span>搭 ${tName} 前往 <strong>${dest.zh}</strong>（${dest.ko} / ${dest.en}）</div>
       </div>
     `;
   } else if (needTransfer && !transferInfo) {
-    html += `<div class="transfer-box"><div class="transfer-title">⚠ 需轉乘</div><div class="transfer-step">目的地 ${dest.zh} 不在此路線上，可能需多次換乘，建議參考地鐵路線圖</div></div>`;
+    html += `<div class="transfer-box"><div class="transfer-title">⚠ 需轉乘</div><div class="transfer-step"><span class="step-num">!</span>目的地 ${dest.zh}（${dest.ko}）不在此路線，建議參考地鐵路線圖</div></div>`;
   }
 
   if (!canBoard) {
-    html += `<div style="margin-top:10px; padding:10px 12px; background:#fff5f0; border-radius:8px; font-size:13px; color:#c04010;">
-      請在月台對面搭乘反方向列車
-    </div>`;
+    html += `<div class="ng-hint">↔ 請在月台對面搭乘反方向列車</div>`;
   }
 
   body.innerHTML = html;
@@ -1031,13 +1248,11 @@ function showResult(canBoard, needTransfer, cur, next, dest, line, dirLabel, tra
 function showError(msg) {
   const box = document.getElementById('result-box');
   const head = document.getElementById('res-head');
-  const verdict = document.getElementById('res-verdict');
-  const sub = document.getElementById('res-sub');
+  box.classList.remove('show','ok-box','ng-box');
+  void box.offsetWidth;
   box.classList.add('show');
   head.className = 'result-head warn';
-  verdict.className = 'verdict warn';
-  verdict.textContent = '⚠ 查詢問題';
-  sub.textContent = msg;
+  head.innerHTML = `<div class="verdict-icon">⚠️</div><div class="verdict-text-wrap"><div class="verdict warn">查詢問題</div><div class="verdict-sub">${msg}</div></div>`;
   document.getElementById('res-body').innerHTML = '';
 }
 
