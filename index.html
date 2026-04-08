@@ -2,8 +2,9 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>首爾地鐵迷路小幫手</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -15,6 +16,7 @@
     --border: #e0e0e0; --input-bg: #fafafa;
     --ok: #1D9E75; --ng: #D85A30; --warn: #D4A300;
   }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   body { font-family: 'Segoe UI', 'Noto Sans TC', sans-serif; background: var(--card); color: var(--text); min-height: 100svh; }
 
   .app { min-height: 100svh; background: var(--card); }
@@ -137,6 +139,7 @@
   /* MOBILE */
   @media (max-width: 768px) {
     .panel { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--border); min-height: 100svh; height: auto; }
+    .input-wrap input, .input-wrap select, .mode-btn, .go-btn, .tab-btn { font-size: 16px !important; }
     #tab-map object { min-height: calc(100svh - 120px) !important; }
   }
 
