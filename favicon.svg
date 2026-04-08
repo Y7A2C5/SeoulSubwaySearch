@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="小幫手機器人圖示">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2052A0"/>
+      <stop offset="100%" stop-color="#3CB044"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/>
+  <rect x="16" y="20" width="32" height="24" rx="8" fill="#ffffff"/>
+  <circle cx="25" cy="32" r="3" fill="#2052A0"/>
+  <circle cx="39" cy="32" r="3" fill="#2052A0"/>
+  <rect x="26" y="40" width="12" height="3" rx="1.5" fill="#2052A0"/>
+  <rect x="29" y="14" width="6" height="8" rx="3" fill="#ffffff"/>
+  <circle cx="32" cy="12" r="3" fill="#F36522"/>
+</svg>
